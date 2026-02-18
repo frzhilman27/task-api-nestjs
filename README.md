@@ -1,23 +1,40 @@
-# Task API - NestJS
+# Task Management API
 
-REST API sederhana menggunakan NestJS untuk manajemen Task.
+RESTful API sederhana untuk manajemen task menggunakan NestJS.
 
-Project ini dibuat sebagai bagian dari technical test backend.
+Project ini dibuat sebagai bagian dari technical test Backend Developer.
 
 ---
 
-## Features
+## 🚀 Tech Stack
+
+- Node.js
+- NestJS
+- TypeScript
+- Swagger (OpenAPI)
+- class-validator
+
+---
+
+## 📌 Features
 
 - Create Task
 - Get All Tasks
 - Get Task by ID
 - Update Task
 - Delete Task
-- Swagger Documentation
+- Request validation
+- Swagger API documentation
 
 ---
 
-## Installation
+## 📂 Project Structure
 
-```bash
-npm install
+src/
+├── tasks/
+│ ├── dto/
+│ ├── tasks.controller.ts
+│ ├── tasks.service.ts
+│ └── tasks.module.ts
+├── app.module.ts
+└── main.ts
