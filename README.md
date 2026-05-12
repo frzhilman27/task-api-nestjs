@@ -2,15 +2,26 @@
 
 Backend REST API built with NestJS, Prisma, and SQLite for the Indocoding internship entrance test.
 
-## Features
+## 🎯 Kriteria Penilaian Posisi BE (Backend)
 
-- **User Authentication** — Register & Login with JWT Bearer token
-- **User CRUD** — Get, Update, Delete users (protected, own account only)
-- **Post CRUD** — Create, Read, Update, Delete posts (ownership enforced)
-- **Comment CRUD** — Create, Read, Update, Delete comments on posts
-- **Like System** — Like/Unlike posts (duplicate prevention)
-- **Task CRUD** — Simple task management with validation
-- **Swagger API Docs** — Interactive API documentation at `/api/docs`
+Repositori ini telah memenuhi seluruh spesifikasi test masuk untuk posisi Backend Engineer:
+
+1. ✅ **Buatlah API User Auth, dan CRUD tabel User**
+   - **Auth:** Endpoint Register & Login (JWT Authentication, password di-hash dengan `bcrypt`).
+   - **User CRUD:** Endpoint GET, PUT, DELETE (dilindungi Guard, pengguna hanya bisa memodifikasi datanya sendiri).
+
+2. ✅ **Buatlah CRUD untuk Post, Comment, dan Like**
+   - **Post:** Create, Read (all & by id), Update, dan Delete post.
+   - **Comment:** Relasi dengan post dan user, fitur Create, Read, Update, dan Delete comment.
+   - **Like:** Fitur like dan unlike pada sebuah post (mencegah duplikat like).
+
+3. ✅ **Buat Swagger API**
+   - Dokumentasi interaktif Swagger otomatis dapat diakses di endpoint `/api/docs` saat server berjalan.
+
+4. ✅ **Task Module (Sesuai Spesifikasi Khusus)**
+   - Resource `Task` lengkap dengan module, controller, dan service.
+   - Endpoint: `POST /tasks`, `GET /tasks`, `GET /tasks/:id`, `PUT /tasks/:id`, `DELETE /tasks/:id`.
+   - **Validasi DTO & Pipes:** `title` (required string), `description` (optional), `isCompleted` (otomatis *false* jika kosong).
 
 ## Tech Stack
 
