@@ -1,21 +1,28 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  
+  // Enable CORS
+  app.enableCors();
 
-  app.useGlobalPipes(new ValidationPipe());
+  // Enable global validation pipe
+  app.useGlobalPipes(new ValidationPipe({
+    whitelist: true,
+    transform: true,
+  }));
 
   const config = new DocumentBuilder()
-    .setTitle('Task API')
-    .setDescription('API untuk test backend magang')
+    .setTitle('Indocoding Test API')
+    .setDescription('The API description for Indocoding entrance test')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
-
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  const documentFactory = () => SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api/docs', app, documentFactory);
 
   await app.listen(3000);
 }

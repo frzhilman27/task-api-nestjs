@@ -1,12 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import type { Task } from './task.interface';
 import { CreateTaskDto } from './dto/create-task.dto';
-
-export interface Task {
-  id: number;
-  title: string;
-  description?: string;
-  isCompleted: boolean;
-}
+import { UpdateTaskDto } from './dto/update-task.dto';
 
 @Injectable()
 export class TasksService {
@@ -14,15 +9,14 @@ export class TasksService {
   private idCounter = 1;
 
   create(createTaskDto: CreateTaskDto): Task {
-    const task: Task = {
+    const newTask: Task = {
       id: this.idCounter++,
       title: createTaskDto.title,
-      description: createTaskDto.description,
+      description: createTaskDto.description || '',
       isCompleted: createTaskDto.isCompleted ?? false,
     };
-
-    this.tasks.push(task);
-    return task;
+    this.tasks.push(newTask);
+    return newTask;
   }
 
   findAll(): Task[] {
@@ -30,20 +24,32 @@ export class TasksService {
   }
 
   findOne(id: number): Task {
-    const task = this.tasks.find(t => t.id === id);
-    if (!task) throw new NotFoundException('Task not found');
+    const task = this.tasks.find((task) => task.id === id);
+    if (!task) {
+      throw new NotFoundException(`Task with ID ${id} not found`);
+    }
     return task;
   }
 
-  update(id: number, updateData: Partial<Task>): Task {
+  update(id: number, updateTaskDto: UpdateTaskDto): Task {
     const task = this.findOne(id);
-    Object.assign(task, updateData);
+    if (updateTaskDto.title !== undefined) {
+      task.title = updateTaskDto.title;
+    }
+    if (updateTaskDto.description !== undefined) {
+      task.description = updateTaskDto.description;
+    }
+    if (updateTaskDto.isCompleted !== undefined) {
+      task.isCompleted = updateTaskDto.isCompleted;
+    }
     return task;
   }
 
   remove(id: number): void {
-    const index = this.tasks.findIndex(t => t.id === id);
-    if (index === -1) throw new NotFoundException('Task not found');
-    this.tasks.splice(index, 1);
+    const taskIndex = this.tasks.findIndex((task) => task.id === id);
+    if (taskIndex === -1) {
+      throw new NotFoundException(`Task with ID ${id} not found`);
+    }
+    this.tasks.splice(taskIndex, 1);
   }
 }

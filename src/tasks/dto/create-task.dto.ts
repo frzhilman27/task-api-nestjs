@@ -1,19 +1,19 @@
-import { IsString, IsOptional, IsBoolean } from 'class-validator';
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { IsString, IsNotEmpty, IsOptional, IsBoolean } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateTaskDto {
-
-  @ApiProperty({ example: 'Belajar NestJS' })
+  @ApiProperty({ description: 'Title of the task', example: 'Buy groceries' })
   @IsString()
+  @IsNotEmpty()
   title: string;
 
-  @ApiPropertyOptional({ example: 'Persiapan test backend' })
-  @IsOptional()
+  @ApiProperty({ description: 'Description of the task', required: false, example: 'Buy milk, eggs, and bread' })
   @IsString()
+  @IsOptional()
   description?: string;
 
-  @ApiPropertyOptional({ example: false })
-  @IsOptional()
+  @ApiProperty({ description: 'Whether the task is completed', required: false, default: false })
   @IsBoolean()
+  @IsOptional()
   isCompleted?: boolean;
 }
