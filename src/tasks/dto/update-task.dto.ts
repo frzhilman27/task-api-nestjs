@@ -12,7 +12,10 @@ export class UpdateTaskDto {
   @IsOptional()
   description?: string;
 
-  @ApiProperty({ description: 'Whether the task is completed', required: false })
+  @ApiProperty({
+    description: 'Whether the task is completed',
+    required: false,
+  })
   @IsBoolean()
   @IsOptional()
   isCompleted?: boolean;

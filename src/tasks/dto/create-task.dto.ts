@@ -7,12 +7,20 @@ export class CreateTaskDto {
   @IsNotEmpty()
   title: string;
 
-  @ApiProperty({ description: 'Description of the task', required: false, example: 'Buy milk, eggs, and bread' })
+  @ApiProperty({
+    description: 'Description of the task',
+    required: false,
+    example: 'Buy milk, eggs, and bread',
+  })
   @IsString()
   @IsOptional()
   description?: string;
 
-  @ApiProperty({ description: 'Whether the task is completed', required: false, default: false })
+  @ApiProperty({
+    description: 'Whether the task is completed',
+    required: false,
+    default: false,
+  })
   @IsBoolean()
   @IsOptional()
   isCompleted?: boolean;

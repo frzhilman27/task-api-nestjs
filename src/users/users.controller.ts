@@ -1,4 +1,14 @@
-import { Controller, Get, Body, Param, Put, Delete, UseGuards, ParseIntPipe, ForbiddenException } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Body,
+  Param,
+  Put,
+  Delete,
+  UseGuards,
+  ParseIntPipe,
+  ForbiddenException,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -40,7 +50,10 @@ export class UsersController {
 
   @Delete(':id')
   @ApiOperation({ summary: 'Delete user (own account only)' })
-  remove(@Param('id', ParseIntPipe) id: number, @CurrentUser() user: AuthenticatedUser) {
+  remove(
+    @Param('id', ParseIntPipe) id: number,
+    @CurrentUser() user: AuthenticatedUser,
+  ) {
     if (user.userId !== id) {
       throw new ForbiddenException('You can only delete your own account');
     }

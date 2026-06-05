@@ -1,4 +1,12 @@
-import { Controller, Post, Body, Param, Delete, UseGuards, ParseIntPipe } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Param,
+  Delete,
+  UseGuards,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { LikesService } from './likes.service';
 import { CreateLikeDto } from './dto/like.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -15,13 +23,19 @@ export class LikesController {
 
   @Post()
   @ApiOperation({ summary: 'Like a post' })
-  create(@Body() createLikeDto: CreateLikeDto, @CurrentUser() user: AuthenticatedUser) {
+  create(
+    @Body() createLikeDto: CreateLikeDto,
+    @CurrentUser() user: AuthenticatedUser,
+  ) {
     return this.likesService.create(createLikeDto, user.userId);
   }
 
   @Delete(':postId')
   @ApiOperation({ summary: 'Unlike a post' })
-  remove(@Param('postId', ParseIntPipe) postId: number, @CurrentUser() user: AuthenticatedUser) {
+  remove(
+    @Param('postId', ParseIntPipe) postId: number,
+    @CurrentUser() user: AuthenticatedUser,
+  ) {
     return this.likesService.remove(postId, user.userId);
   }
 }

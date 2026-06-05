@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Param, Put, Delete, UseGuards, ParseIntPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Put,
+  Delete,
+  UseGuards,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { CommentsService } from './comments.service';
 import { CreateCommentDto, UpdateCommentDto } from './dto/comment.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -15,7 +25,10 @@ export class CommentsController {
 
   @Post()
   @ApiOperation({ summary: 'Create new comment' })
-  create(@Body() createCommentDto: CreateCommentDto, @CurrentUser() user: AuthenticatedUser) {
+  create(
+    @Body() createCommentDto: CreateCommentDto,
+    @CurrentUser() user: AuthenticatedUser,
+  ) {
     return this.commentsService.create(createCommentDto, user.userId);
   }
 
@@ -43,7 +56,10 @@ export class CommentsController {
 
   @Delete(':id')
   @ApiOperation({ summary: 'Delete your comment' })
-  remove(@Param('id', ParseIntPipe) id: number, @CurrentUser() user: AuthenticatedUser) {
+  remove(
+    @Param('id', ParseIntPipe) id: number,
+    @CurrentUser() user: AuthenticatedUser,
+  ) {
     return this.commentsService.remove(id, user.userId);
   }
 }

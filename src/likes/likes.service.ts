@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ConflictException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateLikeDto } from './dto/like.dto';
 
@@ -7,7 +11,9 @@ export class LikesService {
   constructor(private prisma: PrismaService) {}
 
   async create(createLikeDto: CreateLikeDto, authorId: number) {
-    const post = await this.prisma.post.findUnique({ where: { id: createLikeDto.postId } });
+    const post = await this.prisma.post.findUnique({
+      where: { id: createLikeDto.postId },
+    });
     if (!post) throw new NotFoundException('Post not found');
 
     const existingLike = await this.prisma.like.findUnique({

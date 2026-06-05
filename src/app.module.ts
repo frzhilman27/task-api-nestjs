@@ -10,7 +10,15 @@ import { LikesModule } from './likes/likes.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [TasksModule, PrismaModule, UsersModule, PostsModule, CommentsModule, LikesModule, AuthModule],
+  imports: [
+    TasksModule,
+    PrismaModule,
+    UsersModule,
+    PostsModule,
+    CommentsModule,
+    LikesModule,
+    AuthModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
